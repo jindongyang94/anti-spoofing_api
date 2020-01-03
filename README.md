@@ -12,7 +12,7 @@ The Makefile has all the needed functions to run and test in docker locally.
 
 Folder Structure:
 
-```
+```bash
 .  
 ├── Dockerfile  
 ├── Makefile  

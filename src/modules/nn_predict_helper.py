@@ -183,10 +183,10 @@ def predict(frame, startX, startY, endX, endY, model, le, confidence):
     label = le.classes_[j]
 
     # Apply threshold rules here 
-    # If label == real but not above the desired confidence, we should not pass it.
+    # If label == fake but not above the desired confidence, we should not pass it.
     if label == 'fake' and preds[j] < confidence:
-        label = 'real'
-        j = np.argmin(preds) 
+        j = np.argmin(preds)
+        label = le.classes_[j]
 
     # draw the label and bounding box on the frame
     if label == 'real':

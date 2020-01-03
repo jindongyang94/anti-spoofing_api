@@ -47,10 +47,10 @@ def classify_image(img_path):
     frame = cv2.imread(img_path)
     if args['detector'] == 'face_RFB':
         frame, finally_fake, detected_faces = nn.label_with_face_detector_ultra(
-            frame, net, model, le, args['confidence'])
+            frame, net, model, le, args['confidence'], use_video=False)
     else:
         frame, finally_fake, detected_faces = nn.label_with_face_detector_original(
-            frame, net, model, le, args['confidence'])
+            frame, net, model, le, args['confidence'], use_video=False)
 
     runtime = time.time() - start_time
 

@@ -3,9 +3,9 @@
 The API is used to be deployed as a microservice on cloud (e.g. AWS) where an image is given and the result will returned as such:  
 
 {  
-    valid : <whether the result is applicable for the image or not. If it is not, the result should be disregarded.>,  
-    spoof: <whether the image is spoofed (True) or not (False)>,  
-    runtime: <the duration taken to reach the conclusion>  
+    valid : < whether the result is applicable for the image or not. If it is not, the result should be disregarded. >,  
+    spoof: < whether the image is spoofed (True) or not (False) >,  
+    runtime: < the duration taken to reach the conclusion >  
 }
 
 The Makefile has all the needed functions to run and test in docker locally.  

@@ -23,7 +23,7 @@ def ping():
     return jsonify(True)
 
 
-@app.route('/detect-face', methods=['POST'])
+@app.route('/detect-spoof', methods=['POST'])
 def detect_face():
     if request.method == 'POST':
         if 'image' not in request.files:

@@ -12,6 +12,7 @@ The API is used to be deployed as a microservice on cloud (e.g. AWS) where an im
 The Makefile has all the needed functions to run and test in docker locally.  
 
 Folder Structure:
+
 '''bash
 .  
 ├── Dockerfile  

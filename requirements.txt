@@ -1,0 +1,8 @@
+Flask
+gunicorn
+tensorflow
+# tensorflow-gpu 
+keras
+opencv-python-headless==4.1.1.26
+imutils
+scikit-learn

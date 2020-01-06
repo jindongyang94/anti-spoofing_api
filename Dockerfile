@@ -33,7 +33,6 @@ COPY ./requirements.txt /requirements.txt
 COPY ./entrypoint.sh /entrypoint.sh
 COPY /config ${USER_HOME}/config
 COPY /src ${USER_HOME}/src
-COPY /data ${USER_HOME}/data
 
 RUN pip3 install -r requirements.txt
 

@@ -1,0 +1,36 @@
+# Variables need to be declare in Gitlab Project Setting:
+# - Access Key to AWS for publishing image and deploy
+#     AWS_ACCESS_KEY & AWS_SECRET_KEY
+# - AWS EKS cluster name
+#     AWS_K8S_CLUSTER_NAME
+
+stages:
+  - build
+  - release # Push docker image to docker registry
+  - deploy
+
+variables:
+  GIT_STRATEGY: fetch
+
+  AWS_CONTAINER_IMAGE: "175416825336.dkr.ecr.ap-southeast-1.amazonaws.com/anti-spoofing-api"
+  AWS_DEFAULT_REGION: "ap-southeast-1"
+  AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY}"
+  AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_KEY}"
+
+bake_image:
+  stage: release
+  image: 
+    name: gcr.io/kaniko-project/executor:debug-v0.10.0
+    entrypoint: [""]
+  before_script:
+    # Set kaniko config
+    - echo "{\"credHelpers\":{\"175416825336.dkr.ecr.ap-southeast-1.amazonaws.com\":\"ecr-login\"}}" > /kaniko/.docker/config.json
+    - branch="${CI_COMMIT_REF_SLUG}" commit="${CI_COMMIT_SHORT_SHA}"
+  script:
+    - /kaniko/executor --cache=true --cache-repo=${AWS_CONTAINER_IMAGE}
+      --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination="${AWS_CONTAINER_IMAGE}:${commit}"
+      --destination="${AWS_CONTAINER_IMAGE}:${branch}"
+  except:
+    refs:
+      - merge_requests

@@ -13,6 +13,8 @@ ARG USER_HOME=/usr/local/spoofing_detection_api
 ENV PYTHONPATH="$PYTHONPATH/:${USER_HOME}"
 ENV PYTHONPATH="$PYTHONPATH/:${USER_HOME}/src"
 
+EXPOSE 8000
+
 RUN apt-get update -y \
   && apt-get install -y python3-pip python3-dev \
   && cd /usr/local/bin \
@@ -30,11 +32,11 @@ RUN apt-get update -y \
       /usr/share/doc-base
 
 COPY ./requirements.txt /requirements.txt
+RUN pip3 install -r requirements.txt
+
 COPY ./entrypoint.sh /entrypoint.sh
 COPY /config ${USER_HOME}/config
 COPY /src ${USER_HOME}/src
-
-RUN pip3 install -r requirements.txt
 
 WORKDIR ${USER_HOME}
 ENTRYPOINT [ "/entrypoint.sh" ]
